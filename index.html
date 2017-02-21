@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>Mann's Mediated Reality Chart Experience</title>
+        <meta name="description" content="Mann's Mediated Reality Chart Experience">
+        <script src="resources/aframe.min.js"></script>
+        <script src="resources/argon.min.js"></script>
+        <script src="resources/build.js"></script>
+        
+        <script>
+            AFRAME.registerComponent('transistion-on-click', {
+                init: function () {
+                    this.el.addEventListener('click', function(evt) {
+                        this.setAttribute('src',"#arrows");
+                    });
+                }
+            });
+        </script>
+        
+    </head>
+    <body>
+        <ar-scene>
+            <a-entity camera position="0 0 5">
+                <a-entity cursor="fuse: true; fuseTimeout: 500"
+                          position="0 0 -1"
+                          geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+                          material="color: white; shader: flat">
+                </a-entity>    
+            </a-entity>
+            
+             <a-assets>
+                    <img id="chart" src="images/chart.png">
+                    <img id="arrows" src="images/arrows.png">
+            </a-assets>
+            <a-image src="#chart" postion="0 0 -12.50" scale="4 4 4" transition-on-click></a-image>
+        </ar-scene>
+    </body>
+</html>
