@@ -1,37 +1,50 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Mann's Mediated Reality Chart Experience</title>
-        <meta name="description" content="Mann's Mediated Reality Chart Experience">
-        <script src="resources/aframe.min.js"></script>
-        <script src="resources/argon.min.js"></script>
-        <script src="resources/build.js"></script>
+  <head>
+    <meta charset="utf-8">
+    <title>Mann's Mediated Reality Chart Experience</title>
+    <meta name="description" content="basic">
+    <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
+    <script>
+        AFRAME.registerComponent('transition', {
+            schema: {
+                to: {default: ''}
+            },
+                                   
+            init: function() {
+              var data = this.data;
+              this.el.addEventListener('click', function (evt) {
+                  this.setAttribute('material', 'src', '#dog');
+                  this.setAttribute('rotation', data.to);
+                  console.log('I was clicked at: ', evt.detail.intersection.point);
+              });
+            }
+        });
+    </script>
+  </head>
+  <body>
+    <a-scene>
         
-        <script>
-            AFRAME.registerComponent('transistion-on-click', {
-                init: function () {
-                    this.el.addEventListener('click', function(evt) {
-                        this.setAttribute('src',"#arrows");
-                    });
-                }
-            });
-        </script>
+        <a-camera>
+            <a-cursor fuse="true" timeout="1500" color="white"></a-cursor>
+        </a-camera>
         
-    </head>
-    <body>
-        <ar-scene>
-            <a-entity camera position="0 0 5">
-                <a-entity cursor="fuse: true; fuseTimeout: 500"
-                          position="0 0 -1"
-                          geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-                          material="color: white; shader: flat">
-                </a-entity>    
-            </a-entity>
-            
-             <a-assets>
-                    <img id="chart" src="images/chart.png">
-                    <img id="arrows" src="images/arrows.png">
-            </a-assets>
-            <a-image src="#chart" postion="0 0 -12.50" scale="4 4 4" transition-on-click></a-image>
-        </ar-scene>
-    </body>
+        <a-assets>
+            <img id="boxTexture" src="images/chart.png">
+            <img id="skyTexture" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg">
+            <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
+            <img id="dog" src="images/dog.png">
+        </a-assets>
+        
+        
+        <a-plane src="#boxTexture" position="0 2 -5" rotation="0 0 0" shader="flat" scale="3 3 3" transition="to: -90 0 0">
+            <a-animation attribute="position" begin="click" to="0 0 -5" fill="true"></a-animation>
+            <!--<a-animation attribute="position" to="0 2.2 -5" direction="alternate" dur="2000"
+      repeat="indefinite"></a-animation>-->
+        </a-plane>
+        
+        <!--<a-sky src="#skyTexture"></a-sky>-->
+        
+    </a-scene>
+  </body>
 </html>
